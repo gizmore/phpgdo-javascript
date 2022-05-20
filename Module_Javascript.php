@@ -11,22 +11,20 @@ use GDO\UI\GDT_Divider;
 
 /**
  * Configure Javascript options and binaries.
- *
- * - Provides ".min" appendix if minfication or +concat is enabled.
+ * Offer minification and obfuscation.
+ * Offer javascript debug handler.
  * 
  * @author gizmore
- * @version 7.0.0
+ * @version 7.0.1
  * @since 6.10.1
  */
 final class Module_Javascript extends GDO_Module
 {
     public int $priority = 10;
     
-    public function onLoadLanguage() : void
-    {
-    	$this->loadLanguage('lang/js');
-    }
-
+    ##############
+    ### Config ###
+    ##############
     public function getConfig() : array
     {
         return [
@@ -48,7 +46,14 @@ final class Module_Javascript extends GDO_Module
     public function cfgNodeJSPath() : ?string { return $this->getConfigVar('nodejs_path'); }
     public function cfgUglifyPath() : ?string { return $this->getConfigVar('uglifyjs_path'); }
     public function cfgAnnotatePath() : ?string { return $this->getConfigVar('ng_annotate_path'); }
-    public function cfgMinAppend() : string { return $this->cfgMinifyJS() === 'no' ? '' : '.min'; }
+    
+    ##############
+    ### Events ###
+    ##############
+    public function onLoadLanguage() : void
+    {
+    	$this->loadLanguage('lang/js');
+    }
     
     public function onInstall() : void
     {

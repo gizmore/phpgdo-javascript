@@ -21,18 +21,19 @@ use GDO\DB\Database;
 final class MinifyJS
 {
 	# Binary pathes
-	private $nodejs;
-	private $uglify;
-	private $annotate;
-	
-	private $input;
-	private $processedSize = 0;
-	private $error = false;
+	private array $input;
 
-	private $external = [];
-	private $concatenate = [];
+	private string $nodejs;
+	private string $uglify;
+	private string $annotate;
 	
-	private $skipMinified = false;
+	private bool $error = false;
+	private int $processedSize = 0;
+
+	private array $external = [];
+	private array $concatenate = [];
+	
+	private bool $skipMinified = false;
 	
 	public static function tempDirS($path='') { return GDO_PATH . 'assets/' . $path; }
 
@@ -131,7 +132,7 @@ final class MinifyJS
     		copy($finalpath, $earlypath);
     		
     		# Abuse external as final loader.
-    		$this->external[] = GDO_WEB_ROOT . "assets/$finalhash.js?vc=".Module_Core::instance()->cfgAssetVersion();
+    		$this->external[] = GDO_WEB_ROOT . "assets/{$finalhash}.js?vc=".Module_Core::instance()->cfgAssetVersion()->__toString();
     		return $this->external;
 		}
 		catch (\Throwable $ex)
