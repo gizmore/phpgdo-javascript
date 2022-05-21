@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Javascript;
 
-use GDO\File\FileUtil;
+use GDO\Util\FileUtil;
 use GDO\Core\GDT;
 use GDO\Core\Module_Core;
 use GDO\CLI\Process;
