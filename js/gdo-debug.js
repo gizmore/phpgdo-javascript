@@ -18,7 +18,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		message: message,
 		stack: GDO.shortDebugURL(error.stack),
 	};
-	window.GDO.xhr(GDO_WEB_ROOT + 'index.php?mo=Javascript&me=Error', 'POST', data);
+	window.GDO.xhr(GDO_WEB_ROOT + 'index.php?_mo=Javascript&_me=Error', 'POST', data);
 	window.GDO.error(message, 'Error');
 	return false;
 };
