@@ -75,7 +75,7 @@ final class MinifyJS
 	    return $this->external;
 	}
 	
-	public function execute() : GDT
+	public function execute()
 	{
 		# Pass 1 - Early hash
 		$earlyhash = $this->earlyhash();

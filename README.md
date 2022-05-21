@@ -10,10 +10,3 @@ Do not forget to run gdo_yarn.sh after you have [installed this module]().
 
 ## Install phpgdo-javascript
 
-This is a core module and is automatically available.
-
-
-### TODO phpgdo-javascript
-
-Should this be a separate repo?
-It does not waste much disk space and is not enabled by default... hmm.

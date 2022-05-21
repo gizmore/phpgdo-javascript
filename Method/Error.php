@@ -27,7 +27,7 @@ final class Error extends MethodAjax
 		];
 	}
 	
-	public function execute() : GDT
+	public function execute()
 	{
 		if (GDO_ERROR_MAIL)
 		{
