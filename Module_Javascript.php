@@ -3,7 +3,7 @@ namespace GDO\Javascript;
 
 use GDO\Core\GDO_Module;
 use GDO\Core\GDT_Enum;
-use GDO\File\GDT_Path;
+use GDO\Core\GDT_Path;
 use GDO\UI\GDT_Link;
 use GDO\Core\GDT_Checkbox;
 use GDO\Javascript\Method\DetectNode;
