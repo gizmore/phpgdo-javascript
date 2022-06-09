@@ -2,13 +2,13 @@
 namespace GDO\Javascript\Method;
 
 use GDO\Core\GDT_Response;
-use GDO\Core\Website;
 use GDO\Admin\MethodAdmin;
 use GDO\CLI\Process;
 use GDO\Javascript\Module_Javascript;
 use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
 use GDO\Form\GDT_Submit;
+use GDO\UI\GDT_Redirect;
 
 /**
  * Auto-detect nodejs_path, uglifyjs_path and ng_annotate_path.
@@ -28,7 +28,7 @@ final class DetectNode extends MethodForm
 	
 	public function getPermission() : ?string { return 'staff'; }
 	public function showInSitemap() { return false; }
-	public function getTitleLangKey() { return 'cfg_link_node_detect'; }
+	public function getMethodTitle() : string { return t('link_node_detect'); }
 	
 	public function createForm(GDT_Form $form) : void
 	{
@@ -43,7 +43,8 @@ final class DetectNode extends MethodForm
 		$response->addField($this->detectUglify());
 		
 		$url = href('Admin', 'Configure', '&module=Javascript');
-		return $response->addField(Website::redirect($url, 12));
+		$redirect = GDT_Redirect::make()->href($url)->redirectTime(12);
+		return $response->addField($redirect);
 	}
 	
 	/**

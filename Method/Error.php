@@ -1,7 +1,6 @@
 <?php
 namespace GDO\Javascript\Method;
 
-use GDO\Core\GDT;
 use GDO\Core\MethodAjax;
 use GDO\Core\GDT_String;
 use GDO\Core\GDT_Text;
