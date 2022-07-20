@@ -26,8 +26,8 @@ final class DetectNode extends MethodForm
 {
 	use MethodAdmin;
 	
-	public function getPermission() : ?string : ?string { return 'staff'; }
-	public function showInSitemap() { return false; }
+	public function getPermission() : ?string { return 'staff'; }
+	public function showInSitemap() : bool { return false; }
 	public function getMethodTitle() : string { return t('link_node_detect'); }
 	
 	public function createForm(GDT_Form $form) : void

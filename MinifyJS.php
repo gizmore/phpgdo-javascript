@@ -2,7 +2,6 @@
 namespace GDO\Javascript;
 
 use GDO\Util\FileUtil;
-use GDO\Core\GDT;
 use GDO\Core\Module_Core;
 use GDO\CLI\Process;
 use GDO\Util\Strings;
@@ -13,7 +12,7 @@ use GDO\DB\Database;
  * Changes are detected by md5.
  * 
  * @author gizmore
- * @version 7.0.0
+ * @version 7.0.1
  * @since 4.1.0
  * @see Website
  * @see Module_Javascript
