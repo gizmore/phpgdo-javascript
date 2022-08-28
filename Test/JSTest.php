@@ -13,7 +13,7 @@ final class JSTest extends TestCase
 {
 	public function testMinify()
 	{
-		assertTrue(1);
+		assertTrue(true);
 	}
 	
 }
