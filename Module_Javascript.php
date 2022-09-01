@@ -32,13 +32,13 @@ final class Module_Javascript extends GDO_Module
         	GDT_Divider::make('div_debug'),
         	GDT_Checkbox::make('debug_js')->initial('1'),
         	GDT_Divider::make('div_minify'),
-        	GDT_Enum::make('minify_js')->enumValues('no', 'yes', 'concat')->initial('no'),
-            GDT_Checkbox::make('compress_js')->initial('0'),
+        	GDT_Enum::make('minify_js')->enumValues('no', 'yes', 'concat')->initial('no')->notNull(),
+            GDT_Checkbox::make('compress_js')->initial('0')->notNull(),
         	GDT_Divider::make('div_binaries'),
             GDT_Link::make('link_node_detect')->href(href('Javascript', 'DetectNode')),
-            GDT_Path::make('nodejs_path')->label('nodejs_path'),
-            GDT_Path::make('uglifyjs_path')->label('uglifyjs_path'),
-            GDT_Path::make('ng_annotate_path')->label('ng_annotate_path'),
+            GDT_Path::make('nodejs_path')->label('nodejs_path')->existingFile(),
+        	GDT_Path::make('uglifyjs_path')->label('uglifyjs_path')->existingFile(),
+        	GDT_Path::make('ng_annotate_path')->label('ng_annotate_path')->existingFile(),
         ];
     }
     public function cfgDebug() : string { return $this->getConfigVar('debug_js'); }
