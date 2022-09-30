@@ -21,7 +21,7 @@ final class Error extends MethodAjax
 	{
 		return [
 			GDT_String::make('url'),
-			GDT_String::make('message'),
+			GDT_String::make('message')->max(768),
 			GDT_Text::make('stack'),
 		];
 	}
