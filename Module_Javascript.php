@@ -15,7 +15,7 @@ use GDO\UI\GDT_Divider;
  * Offer javascript debug handler.
  * 
  * @author gizmore
- * @version 7.0.0
+ * @version 7.0.1
  * @since 6.10.1
  */
 final class Module_Javascript extends GDO_Module
