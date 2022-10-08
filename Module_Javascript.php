@@ -20,8 +20,8 @@ use GDO\UI\GDT_Divider;
  */
 final class Module_Javascript extends GDO_Module
 {
-    public int $priority = 10;
     public string $license = 'MIT';
+    public int    $priority = 10;
     
     ##############
     ### Config ###
