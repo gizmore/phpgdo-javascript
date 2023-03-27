@@ -1,6 +1,8 @@
 <?php
 namespace GDO\Javascript\Method;
 
+use GDO\Core\GDT;
+use GDO\Core\GDT_Response;
 use GDO\Core\GDT_String;
 use GDO\Core\GDT_Text;
 use GDO\Core\MethodAjax;
@@ -27,7 +29,7 @@ final class Error extends MethodAjax
 		];
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		if (GDO_ERROR_MAIL)
 		{
@@ -39,6 +41,7 @@ final class Error extends MethodAjax
 				$url, $message, $stack, sitename()]);
 			Mail::sendDebugMail(': JS Error', $message);
 		}
+		return GDT_Response::make();
 	}
 
 }
