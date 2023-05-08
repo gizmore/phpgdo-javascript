@@ -33,7 +33,7 @@ final class DetectNode extends MethodForm
 
 	public function getMethodTitle(): string { return t('link_node_detect'); }
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->text('info_detect_node_js');
 		$form->actions()->addField(GDT_Submit::make()->onclick([$this, 'executeDetection']));

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Javascript;
 
 use GDO\Core\GDO_Module;
@@ -14,7 +15,7 @@ use GDO\UI\GDT_Link;
  * Offer minification and obfuscation.
  * Offer javascript debug handler.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @since 6.10.1
  * @author gizmore
  */

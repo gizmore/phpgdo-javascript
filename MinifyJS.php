@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Javascript;
 
 use GDO\CLI\Process;
@@ -12,7 +13,7 @@ use Throwable;
  * Very basic on-the-fly javascript mangler.
  * Changes are detected by md5.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @since 4.1.0
  * @author gizmore
  * @see Website
@@ -36,7 +37,7 @@ final class MinifyJS
 
 	private bool $skipMinified = false;
 
-	public function __construct(array $javascripts, $skipMinified = false)
+	public function __construct(array $javascripts, bool $skipMinified = false)
 	{
 		$this->input = $javascripts;
 		$module = Module_Javascript::instance();
@@ -47,20 +48,20 @@ final class MinifyJS
 		FileUtil::createDir($this->tempDir());
 	}
 
-	public function tempDir($path = '') { return self::tempDirS($path); }
+	public function tempDir(string $path = ''): string { return self::tempDirS($path); }
 
-	public static function tempDirS($path = '') { return GDO_PATH . 'assets/' . $path; }
+	public static function tempDirS($path = ''): string { return GDO_PATH . 'assets/' . $path; }
 
-	public static function minified(array $javascripts)
+	public static function minified(array $javascripts): array
 	{
 		$minify = new self($javascripts);
 		return $minify->execute();
 	}
 
-	public function execute()
+	public function execute(): array
 	{
 		# Pass 1 - Early hash
-		$earlyhash = $this->earlyhash();
+		$earlyhash = $this->earlyHash();
 		$earlypath = $this->tempDir("$earlyhash.js");
 		if (FileUtil::isFile($earlypath))
 		{
@@ -117,19 +118,15 @@ final class MinifyJS
 			$this->external[] = GDO_WEB_ROOT . "assets/{$finalhash}.js?vc=" . Module_Core::instance()->cfgAssetVersion()->__toString();
 			return $this->external;
 		}
-		catch (Throwable $ex)
-		{
-			throw $ex;
-		}
 		finally
 		{
 			Database::instance()->unlock('js_minify');
 		}
 	}
 
-	public function earlyHash() { return md5(implode('|', $this->input)); }
+	public function earlyHash(): string { return md5(implode('|', $this->input)); }
 
-	private function getOptimizedResult($earlyhash)
+	private function getOptimizedResult(string $earlyhash): array
 	{
 		foreach ($this->input as $path)
 		{
@@ -146,14 +143,14 @@ final class MinifyJS
 		return $this->external;
 	}
 
-	public function finalHash() { return md5(implode('|', array_keys($this->concatenate))); }
+	public function finalHash(): string { return md5(implode('|', array_keys($this->concatenate))); }
 
-	public function minifiedJavascriptPath($path)
+	public function minifiedJavascriptPath($path): string
 	{
 		if (
 			(!strpos($path, '://')) &&
-			(strpos($path, GDO_WEB_ROOT . 'index.php') !== 0) &&
-			(strpos($path, '//') !== 0)
+			(!str_starts_with($path, GDO_WEB_ROOT . 'index.php')) &&
+			(!str_starts_with($path, '//'))
 		)
 		{
 			return $this->minifiedJavascript($path);
@@ -165,7 +162,7 @@ final class MinifyJS
 		}
 	}
 
-	public function minifiedJavascript($path)
+	public function minifiedJavascript(string $path): string
 	{
 		$path = Strings::substrFrom($path, GDO_WEB_ROOT, $path);
 		$src = GDO_PATH . Strings::substrTo($path, '?', $path);
@@ -191,15 +188,6 @@ final class MinifyJS
 					# Build command
 					$annotate = $this->annotate;
 					$uglifyjs = $this->uglify;
-// 					$nodejs = $this->nodejs;
-// 					if (Process::isWindows())
-// 					{
-// 					    $command = "$annotate -ar $src | $uglifyjs --no-annotations --compress pure_funcs=console.log --mangle -o $dest";
-// 					}
-// 					else
-// 					{
-//     					$command = "$annotate -ar $src | $uglifyjs --no-annotations --compress pure_funcs=console.log --mangle -o $dest";
-// 					}
 					$compress = Module_Javascript::instance()->cfgCompressJS() ? '--compress' : '';
 					$command = "$annotate -ar $src | $uglifyjs --no-annotations $compress --mangle -o $dest";
 					$return = 0;
