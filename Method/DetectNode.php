@@ -46,7 +46,7 @@ final class DetectNode extends MethodForm
 		$response->addField($this->detectUglify());
 
 		$url = href('Admin', 'Configure', '&module=Javascript');
-		$redirect = GDT_Redirect::make()->href($url)->redirectTime(12);
+		$redirect = GDT_Redirect::make()->href($url)->time(12);
 		return $response->addField($redirect);
 	}
 
