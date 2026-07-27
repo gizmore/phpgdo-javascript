@@ -25,9 +25,9 @@ final class MinifyJS
 	# Binary pathes
 	private array $input;
 
-	private string $nodejs;
-	private string $uglify;
-	private string $annotate;
+	private ?string $nodejs;
+	private ?string $uglify;
+	private ?string $annotate;
 
 	private bool $error = false;
 	private int $processedSize = 0;
