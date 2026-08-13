@@ -186,10 +186,11 @@ final class MinifyJS
 				else
 				{
 					# Build command
-					$annotate = $this->annotate;
-					$uglifyjs = $this->uglify;
+					$annotate = $this->annotationCommand($src);
+					$uglifyjs = escapeshellarg((string)$this->uglify);
 					$compress = Module_Javascript::instance()->cfgCompressJS() ? '--compress' : '';
-					$command = "$annotate -ar $src | $uglifyjs --no-annotations $compress --mangle -o $dest";
+					$dest = escapeshellarg($dest);
+					$command = "$annotate | $uglifyjs --no-annotations $compress --mangle -o $dest";
 					$return = 0;
 					$output = [];
 					exec($command, $output, $return);
@@ -206,6 +207,28 @@ final class MinifyJS
 		}
 		$this->external[] = $path;
 		return $path;
+	}
+
+	/**
+	 * Build an ng-annotate command for one source file.
+	 *
+	 * ng-annotate-patched 1.15 together with newer commander releases no
+	 * longer accepts the positional file argument through its CLI. Its public
+	 * JavaScript API remains stable, so prefer it when the installed binary
+	 * exposes the package source next to its executable. Older installations
+	 * keep using the regular command-line interface.
+	 */
+	private function annotationCommand(string $src): string
+	{
+		$annotate = (string)$this->annotate;
+		$realpath = realpath($annotate);
+		$main = $realpath ? dirname($realpath) . '/src/ng-annotate-main.js' : '';
+		if ($this->nodejs && FileUtil::isFile($main))
+		{
+			$script = 'const fs=require("fs");const ng=require(process.argv[1]);const result=ng(fs.readFileSync(process.argv[2],"utf8"),{add:true,remove:true});process.stdout.write(result.src);';
+			return escapeshellarg($this->nodejs) . ' -e ' . escapeshellarg($script) . ' ' . escapeshellarg($main) . ' ' . escapeshellarg($src);
+		}
+		return escapeshellarg($annotate) . ' -ar ' . escapeshellarg($src);
 	}
 
 }
