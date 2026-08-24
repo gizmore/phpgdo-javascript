@@ -15,7 +15,6 @@ return [
 	'err_nodejs_not_found' => 'Konnte nodejs nicht finden.',
 	'err_annotate_not_found' => 'Konnte ng-annotate nicht finden.',
 	'err_uglify_not_found' => 'Konnte uglify-js nicht finden.',
-	'minify_js' => 'Javascript optimieren?',
 	'enum_concat' => 'Minimieren und zusammenführen',
 	'info_detect_node_js' => 'Javascript Programme suchen.<br/>
 Installieren Sie diese <em>bevor</em> Sie dies ausführen.<br/>
