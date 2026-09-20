@@ -31,7 +31,7 @@ final class Error extends MethodAjax
 
 	public function execute(): GDT
 	{
-		if (GDO_ERROR_MAILS)
+		if (GDO_SEND_ERROR_MAILS)
 		{
 			$url = $this->gdoParameterVar('url');
 			$message = $this->gdoParameterVar('message');
